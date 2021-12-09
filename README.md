@@ -1,18 +1,13 @@
-## Alertas periféricas
+## Error Handling
 
-  1. Creamos *Alert.js* en la carpeta de recursos compartidos.
-  2. Importamos en *App.js* para crear una alerta global.
-  3. Incluimos en el *State* los valores necesarios para el alert. (*show* y *text*)
-  4. Pasamos esos valores al Alert para comprobar si funciona.
-  5. Creamos *función showText* en *App.js*.
-  6. Pasamos la función a aquellos componentes que necesiten lanzar alertas.
-  7. Creamos *función closeAlert* en *App.js*
-  
-## Contenido propietario
+  1. Modificamos el modelo para incluir errores personalizados.
+  2. Creamos la carpeta de *Utils* para crear una función *handleMongooseError*.
+  3. Lo incluimos en el post coaster dentro del catch. 
+    3.1 Si no está ya, enviamos un estado 500 con la respuesta
+  4. Settear el error que recibamos en cliente dentro del estado.
+  5. Pasamos el error al formulario o al alert.
 
-  1. Añadimos owner al modelo necesario.
-  2. Añadimos el owner en la creación del CRUD.
-  3. Incluir *withCredentials* en el servicio de coasters para que pueda leer la sesión.
-  4. Añadir propiedad *owned* en la *CoasterCard.js*
-  5. Incluir botón de edición en *CoasterCard.js*
-  6. Crear sistema de edición.
+## Uso del .env en React
+
+  1. Instalamos la dependencia dotenv-cli
+  2. Create .env.local
