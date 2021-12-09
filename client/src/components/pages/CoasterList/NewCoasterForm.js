@@ -16,7 +16,7 @@ export default class NewCoasterForm extends Component {
         inversions: "",
         imageUrl: ""
       },
-
+      errors: false,
       loading: false
     }
 
@@ -29,10 +29,22 @@ export default class NewCoasterForm extends Component {
 
     this.service.createCoaster(this.state.coaster)
       .then(response => {
-        this.props.closeModal()
+        this.setState({
+          coaster: {
+            title: "",
+            description: "",
+            length: "",
+            inversions: "",
+            imageUrl: ""
+          }
+        })
         this.props.refreshCoasters()
+        this.props.closeModal()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        const { errors } = err.response.data
+        this.setState({ errors })
+      })
 
   }
 
@@ -66,7 +78,7 @@ export default class NewCoasterForm extends Component {
           loading: false
         })
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log("El error", { err }))
 
   }
 
@@ -99,7 +111,7 @@ export default class NewCoasterForm extends Component {
           <Form.Label>Archivo de imagen</Form.Label>
           <Form.Control onChange={this.handleUploadChange} name="imageData" type="file" />
         </Form.Group>
-
+        {this.state.errors && this.state.errors.map(error => <p>{error}</p>)}
         {this.state.loading && <Spinner shape="circle" />}
         <Button disabled={this.state.loading} variant="primary" type="submit">
           Submit

@@ -12,6 +12,7 @@ class CoasterDetails extends Component {
       inversions: "",
       length: "",
       imageUrl: "",
+      err: ""
     }
 
     this.service = new CoasterService()
@@ -26,7 +27,7 @@ class CoasterDetails extends Component {
 
         this.setState({ title, description, inversions, length, imageUrl })
       })
-      .catch(err => console.log(err))
+      .catch(err => this.setState({ err: err.response.data.err }))
   }
 
   render() {
@@ -36,23 +37,26 @@ class CoasterDetails extends Component {
       <Container>
         <h1>Detalles</h1>
 
-        <Row className="justify-content-around">
-          <Col md={4} style={{ overflow: "hidden" }}>
-            <article>
-              <h2>{title}</h2>
-              <div>
-                <p>{description}</p>
-                <hr />
-                <br />
-                <p>Nº de Inversiones: {inversions}</p>
-                <p>Longitud: {length}</p>
-              </div>
-            </article>
-          </Col>
-          <Col md={6}>
-            <img src={imageUrl} alt={title} ></img>
-          </Col>
-        </Row>
+        {this.state.err ?
+          <h1>{this.state.err}</h1>
+          :
+          <Row className="justify-content-around">
+            <Col md={4} style={{ overflow: "hidden" }}>
+              <article>
+                <h2>{title}</h2>
+                <div>
+                  <p>{description}</p>
+                  <hr />
+                  <br />
+                  <p>Nº de Inversiones: {inversions}</p>
+                  <p>Longitud: {length}</p>
+                </div>
+              </article>
+            </Col>
+            <Col md={6}>
+              <img src={imageUrl} alt={title} ></img>
+            </Col>
+          </Row>}
       </Container >
     )
   }

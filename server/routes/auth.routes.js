@@ -47,7 +47,6 @@ router.post('/login', (req, res) => {
       }
 
       req.session.currentUser = user
-      console.log(req.session.currentUser)
       res.json(req.session.currentUser)
     })
     .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
@@ -55,7 +54,6 @@ router.post('/login', (req, res) => {
 
 
 router.get('/logout', (req, res) => {
-  console.log(req.session.currentUser)
   req.session.destroy((err) => res.status(200).json({ code: 200, message: 'Logout successful' }));
 })
 

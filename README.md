@@ -7,7 +7,6 @@
   4. Settear el error que recibamos en cliente dentro del estado.
   5. Pasamos el error al formulario o al alert.
 
-## Uso del .env en React
+## Uso del .env
 
-  1. Instalamos la dependencia dotenv-cli
-  2. Create .env.local
+  1. Creamos un .env con normalidad. Cada clave ha de empezar por REACT_APP

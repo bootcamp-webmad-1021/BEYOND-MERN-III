@@ -22,8 +22,7 @@ class CoasterPage extends Component {
     this.service.getAllCoasters()
       .then(response => {
         const coasters = response.data
-
-        this.setState({ coasters: coasters })
+        this.setState({ coasters })
       })
       .catch(err => console.log(err))
   }

@@ -1,5 +1,7 @@
 const router = require("express").Router()
+const { isValidObjectId } = require("mongoose")
 const Coaster = require("../models/Coaster.model")
+const { handleMongooseError } = require("../utils")
 
 
 router.get("/allCoasters", (req, res) => {
@@ -11,6 +13,11 @@ router.get("/allCoasters", (req, res) => {
 router.get("/coaster/:id", (req, res) => {
   const { id } = req.params
 
+  if (!isValidObjectId(id)) {
+    res.status(500).json({ err: "ID Invalido" })
+    return
+  }
+
   Coaster.findById(id)
     .then(theCoaster => res.json(theCoaster))
     .catch(err => res.json({ err, errMessage: "Problema buscando un Coaster" }))
@@ -20,11 +27,10 @@ router.get("/coaster/:id", (req, res) => {
 router.post("/newCoaster", (req, res) => {
   const { title, description, inversions, length, imageUrl } = req.body
 
-  console.log(req.session, "<===============0")
 
   Coaster.create({ title, description, inversions, length, imageUrl, owner: req.session.currentUser._id })
     .then(newCoaster => res.json(newCoaster))
-    .catch(err => res.json({ err, errMessage: "Problema creando Coaster" }))
+    .catch(err => res.status(500).json({ errors: handleMongooseError(err) }))
 })
 
 router.put("/editCoaster/:id", (req, res) => {

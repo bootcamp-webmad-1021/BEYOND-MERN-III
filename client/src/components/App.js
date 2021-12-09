@@ -39,6 +39,9 @@ class App extends Component {
   closeAlert = () => this.setState({ alert: { show: false, text: "" } })
 
   render() {
+
+    console.log(process.env.REACT_APP_API_KEY)
+
     return (
       <>
 

@@ -2,8 +2,14 @@ const { Schema, model } = require("mongoose");
 
 const coasterSchema = new Schema(
   {
-    title: String,
-    description: String,
+    title: {
+      type: String,
+      required: [true, "El nombre es obligatorio"]
+    },
+    description: {
+      type: String,
+      required: [true, "La descripción es obligatoria"]
+    },
     inversions: Number,
     length: Number,
     imageUrl: String,
